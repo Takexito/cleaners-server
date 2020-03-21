@@ -43,4 +43,20 @@ public class ClientController {
         client.setTrashPointId(pointId);
         return clientRepository.save(client);
     }
+
+    @GetMapping("/{id}/balance/plus")
+    public Client plusBalance(@PathVariable long id,
+                              @RequestParam(value = "value") int value) {
+        Client client = clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
+        client.setBalance(client.getBalance() + value);
+        return clientRepository.save(client);
+    }
+
+    @GetMapping("/{id}/balance/minus")
+    public Client minusBalance(@PathVariable long id,
+                               @RequestParam(value = "value") int value) {
+        Client client = clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
+        client.setBalance(client.getBalance() - value);
+        return clientRepository.save(client);
+    }
 }

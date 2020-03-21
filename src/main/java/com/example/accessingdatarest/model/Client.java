@@ -26,10 +26,20 @@ public class    Client {
     @NotNull
     @NotBlank
     private String city;
+    private int balance;
     private long trashBinId;
     private long trashPointId;
     private boolean isSubscribed;
     private boolean isConfirmed;
+
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 
     public long getId() {
         return id;

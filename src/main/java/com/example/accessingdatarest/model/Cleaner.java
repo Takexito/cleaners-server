@@ -22,6 +22,13 @@ public class Cleaner{
     private String phone;
     @NotNull
     private int age;
+    @NotNull
+    @NotBlank
+    private String city;
+    private int rank;
+    private int balance;
+    private long ordersId;
+    private Long[] itemOrdersId;
 
     public long getId() {
         return id;
@@ -71,21 +78,6 @@ public class Cleaner{
         this.city = city;
     }
 
-    private String city;
-    private String address;
-    private int rank;
-    private Long[] ordersId;
-    private int balance;
-    private Long[]  itemOrdersId;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public int getRank() {
         return rank;
     }
@@ -94,11 +86,19 @@ public class Cleaner{
         this.rank = rank;
     }
 
-    public Long[] getOrdersId() {
+    public void incRank(){
+        rank++;
+    }
+
+    public void decRank(){
+        rank--;
+    }
+
+    public long getOrdersId() {
         return ordersId;
     }
 
-    public void setOrdersId(Long[] ordersId) {
+    public void setOrdersId(long ordersId) {
         this.ordersId = ordersId;
     }
 

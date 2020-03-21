@@ -29,9 +29,9 @@ public class PointController {
         return trashPoint;
     }
 
-    @PostMapping(path = "/full")
-    public TrashPoint setFullPoint(@RequestBody Long id,
-                                   @RequestBody boolean isFull) {
+    @GetMapping(path = "/{id}/full")
+    public TrashPoint setFullPoint(@PathVariable Long id,
+                                   @RequestParam(value = "isFull") boolean isFull) {
         TrashPoint point = pointRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
         point.setFull(isFull);
         return pointRepository.save(point);
