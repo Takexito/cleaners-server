@@ -1,6 +1,8 @@
 package com.example.accessingdatarest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "bins")
@@ -8,7 +10,10 @@ public class TrashBin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
+    @NotBlank
     private String location;
+    @NotNull
     private boolean isSeparate;
 
     public TrashBin() {

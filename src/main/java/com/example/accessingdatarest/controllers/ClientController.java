@@ -1,51 +1,46 @@
 package com.example.accessingdatarest.controllers;
 
-import com.example.accessingdatarest.model.TrashPoint;
-import com.example.accessingdatarest.repo.PointRepository;
+import com.example.accessingdatarest.exceptions.ObjectNotFoundException;
+import com.example.accessingdatarest.model.Client;
+import com.example.accessingdatarest.repo.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/client")
 public class ClientController {
+
     @Autowired
-    private PointRepository pointRepository;
+    private ClientRepository clientRepository;
 
-    @PostMapping(path = "/point")
-    public TrashPoint addNewPoint(@RequestBody TrashPoint point) {
-        return pointRepository.save(point);
+    @PostMapping()
+    public Client createClient(@RequestBody Client client) {
+        return clientRepository.save(client);
     }
 
-    @GetMapping(path = "/point")
-    public @ResponseBody
-    Iterable<TrashPoint> getAllPoints() {
-        return pointRepository.findAll();
+    @GetMapping()
+    public Iterable<Client> getClients() {
+        return clientRepository.findAll();
     }
 
-    @GetMapping(path = "/point/{id}")
-    public TrashPoint getPoint(@PathVariable("id") TrashPoint trashPoint) {
-        return trashPoint;
+    @GetMapping("/{id}")
+    public Client getClient(@PathVariable long id) {
+        return clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
     }
 
-//    @PostMapping(path = "/users/add")
-//    public @ResponseBody
-//    String addNewUser(@RequestParam String name,
-//                      @RequestParam String phone) {
-//        User n = new User();
-//        n.setFirstName(name);
-//        n.setPhone(phone);
-//        userRepository.save(n);
-//        return "Saved";
-//    }
-//
-//    @GetMapping(path = "/users/all")
-//    public @ResponseBody
-//    Iterable<User> getAllUsers() {
-//        return userRepository.findAll();
-//    }
-//
-//    @GetMapping(path = "/users/{id}")
-//    public @ResponseBody User getUser(@PathVariable String id) {
-//        return userRepository.findById(Long.parseLong(id));
-//    }
+    @GetMapping("/{id}/bin")
+    public Client setBin(@PathVariable long id,
+                         @RequestParam(value = "binId") long binId) {
+        Client client = clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
+        client.setTrashBinId(binId);
+        return clientRepository.save(client);
+    }
+
+    @GetMapping("/{id}/point")
+    public Client setPoint(@PathVariable long id,
+                           @RequestParam(value = "pointId") long pointId) {
+        Client client = clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
+        client.setTrashPointId(pointId);
+        return clientRepository.save(client);
+    }
 }

@@ -2,6 +2,8 @@ package com.example.accessingdatarest.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="cleaners")
@@ -9,9 +11,16 @@ public class Cleaner{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
+    @NotBlank
     private String firstName;
+    @NotNull
+    @NotBlank
     private String lastName;
+    @NotNull
+    @NotBlank
     private String phone;
+    @NotNull
     private int age;
 
     public long getId() {

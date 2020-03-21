@@ -16,7 +16,7 @@
 
 package com.example.accessingdatarest;
 
-import com.example.accessingdatarest.repo.UserRepository;
+import com.example.accessingdatarest.repo.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class AccessingDataRestApplicationTests {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private UserRepository personRepository;
+	private ClientRepository personRepository;
 
 	@BeforeEach
 	public void deleteAllBeforeTests() throws Exception {

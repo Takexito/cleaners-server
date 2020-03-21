@@ -1,6 +1,8 @@
 package com.example.accessingdatarest.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "points")
@@ -8,8 +10,12 @@ public class TrashPoint {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
+    @NotBlank
     private String address;
+    @NotNull
     private int floor;
+    @NotNull
     private int room;
     private String addInfo;
     private boolean isFull;
