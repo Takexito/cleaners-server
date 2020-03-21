@@ -1,6 +1,5 @@
 package com.example.accessingdatarest.model;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 @Table(name="cleaners")
 public class Cleaner{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotNull
     @NotBlank
@@ -29,6 +27,23 @@ public class Cleaner{
     private int balance;
     private long ordersId;
     private Long[] itemOrdersId;
+
+    public void copyFromClient(Client client){
+        id = client.getId();
+        firstName = client.getFirstName();
+        lastName = client.getLastName();
+        phone = client.getPhone();
+        age = client.getAge();
+        city = client.getCity();
+    }
+
+    public void plusBalance(int value){
+        balance += value;
+    }
+
+    public void minusBalance(int value){
+        balance -= value;
+    }
 
     public long getId() {
         return id;

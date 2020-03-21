@@ -1,7 +1,7 @@
 package com.example.accessingdatarest.controllers;
 
 import com.example.accessingdatarest.model.TrashBin;
-import com.example.accessingdatarest.repo.BinRepository;
+import com.example.accessingdatarest.service.BinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 public class BinController {
 
     @Autowired
-    private BinRepository binRepository;
+    private BinService binService;
 
-    @PostMapping()
-    public TrashBin addNewBin(@RequestBody TrashBin trashBin) {
-        return binRepository.save(trashBin);
-    }
+//    @PostMapping()
+//    public TrashBin addNewBin(@RequestBody TrashBin trashBin) {
+//        return binService.addNewBin(trashBin);
+//    }
 
     @GetMapping()
     public @ResponseBody
     Iterable<TrashBin> getAllBins() {
-        return binRepository.findAll();
+        return binService.getAllBins();
     }
 
     @GetMapping(path = "/{id}")

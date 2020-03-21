@@ -2,7 +2,10 @@ package com.example.accessingdatarest.controllers;
 
 import com.example.accessingdatarest.exceptions.ObjectNotFoundException;
 import com.example.accessingdatarest.model.Cleaner;
+import com.example.accessingdatarest.model.Client;
 import com.example.accessingdatarest.repo.CleanerRepository;
+import com.example.accessingdatarest.repo.ClientRepository;
+import com.example.accessingdatarest.service.CleanerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,67 +14,54 @@ import org.springframework.web.bind.annotation.*;
 public class CleanerController {
 
     @Autowired
-    private CleanerRepository cleanerRepository;
+    CleanerService cleanerService;
 
-
-    @PostMapping()
-    public Cleaner createCleaner(@RequestBody Cleaner cleaner) {
-        return cleanerRepository.save(cleaner);
+    @GetMapping("/create")
+    public Cleaner createCleaner(@RequestParam long clientId) {
+        return cleanerService.createCleaner(clientId);
     }
 
     @GetMapping()
     public Iterable<Cleaner> getCleaners() {
-        return cleanerRepository.findAll();
+        return cleanerService.getCleaners();
     }
 
     @GetMapping("/{id}")
     public Cleaner getCleaner(@PathVariable long id) {
-        return cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
+        return cleanerService.getCleaner(id);
     }
 
     @GetMapping("/{id}/rank/inc")
     public Cleaner incRank(@PathVariable long id) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.incRank();
-        return cleanerRepository.save(cleaner);
+        return cleanerService.incRank(id);
     }
 
     @GetMapping("/{id}/rank/dec")
     public Cleaner decRank(@PathVariable long id) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.decRank();
-        return cleanerRepository.save(cleaner);
+        return cleanerService.decRank(id);
     }
 
     @GetMapping("/{id}/balance/plus")
     public Cleaner plusBalance(@PathVariable long id,
                                @RequestParam(value = "value") int value) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.setBalance(cleaner.getBalance() + value);
-        return cleanerRepository.save(cleaner);
+        return cleanerService.plusBalance(id, value);
     }
 
     @GetMapping("/{id}/balance/minus")
     public Cleaner minusBalance(@PathVariable long id,
                                 @RequestParam(value = "value") int value) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.setBalance(cleaner.getBalance() - value);
-        return cleanerRepository.save(cleaner);
+        return cleanerService.minusBalance(id, value);
     }
 
     @GetMapping("/{id}/order/add")
     public Cleaner addOrder(@PathVariable long id,
                             @RequestParam(value = "orderId") long orderId) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.setOrdersId(orderId);
-        return cleanerRepository.save(cleaner);
+        return cleanerService.addOrder(id, orderId);
     }
 
     @GetMapping("/{id}/order/delete")
     public Cleaner deleteOrder(@PathVariable long id,
                                @RequestParam(value = "orderId") long orderId) {
-        Cleaner cleaner = cleanerRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        cleaner.setOrdersId(0);
-        return cleanerRepository.save(cleaner);
+        return cleanerService.deleteOrder(id, orderId);
     }
 }

@@ -1,8 +1,7 @@
 package com.example.accessingdatarest.controllers;
 
-import com.example.accessingdatarest.exceptions.ObjectNotFoundException;
 import com.example.accessingdatarest.model.TrashPoint;
-import com.example.accessingdatarest.repo.PointRepository;
+import com.example.accessingdatarest.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 public class PointController {
 
     @Autowired
-    private PointRepository pointRepository;
+    private PointService pointService;
 
-    @PostMapping()
-    public TrashPoint addNewPoint(@RequestBody TrashPoint point) {
-        return pointRepository.save(point);
-    }
+//    @PostMapping()
+//    public TrashPoint addNewPoint(@RequestBody TrashPoint point) {
+//        return pointService.addNewPoint(point);
+//    }
 
     @GetMapping()
     public @ResponseBody
     Iterable<TrashPoint> getAllPoints() {
-        return pointRepository.findAll();
+        return pointService.getAllPoints();
     }
 
     @GetMapping(path = "/{id}")
@@ -32,9 +31,7 @@ public class PointController {
     @GetMapping(path = "/{id}/full")
     public TrashPoint setFullPoint(@PathVariable Long id,
                                    @RequestParam(value = "isFull") boolean isFull) {
-        TrashPoint point = pointRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
-        point.setFull(isFull);
-        return pointRepository.save(point);
+        return pointService.setFullPoint(id, isFull);
     }
 
 }

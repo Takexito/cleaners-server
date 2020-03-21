@@ -6,8 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="customers")
-public class    Client {
+@Table(name="clients")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +32,13 @@ public class    Client {
     private boolean isSubscribed;
     private boolean isConfirmed;
 
+    public void plusBalance(int value){
+        balance += value;
+    }
+
+    public void minusBalance(int value){
+        balance -= value;
+    }
 
     public int getBalance() {
         return balance;
