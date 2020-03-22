@@ -11,4 +11,6 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
 
 	List<Client> findByLastName(@Param("name") String name);
 
+	Client findByPhone(@Param("phone") String phone);
+
 }

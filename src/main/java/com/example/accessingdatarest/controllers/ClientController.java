@@ -31,6 +31,12 @@ public class ClientController {
         return clientService.getClient(id);
     }
 
+    @GetMapping("/phone")
+    public Client getClientByPhone(@RequestParam String phone) {
+        return clientService.getClientByPhone(phone);
+    }
+
+
     @GetMapping("/{id}/bin")
     public Client setBin(@PathVariable long id,
                          @RequestBody TrashBin bin) {

@@ -36,6 +36,10 @@ public class ClientService {
         return clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
     }
 
+    public Client getClientByPhone(String phone) {
+        return clientRepository.findByPhone(phone);
+    }
+
     public Client setBin(long id, TrashBin bin) {
         binRepository.save(bin);
         Client client = clientRepository.findById(id).orElseThrow(new ObjectNotFoundException(id));
